@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getCurrentDate, getDateBeforeDays } from "../utilities/DateTime";
 import Loading from "../components/Loading";
+import { downloadSegments, getSegmentUrls, mergeSegments } from "../utilities/DownloadUtil";
 
 const SelectEpisode = () =>
 {
@@ -10,33 +11,18 @@ const SelectEpisode = () =>
     const location = useLocation();
     const [episodes, setEpisodes] = useState([]);
     const [daysBefore, setDaysBefore] = useState(0);
-    const program = location.state?.program;
+    const program = location.state?.program?.folder;
+    const channel = location.state?.program?.channel;
+    const programName = location.state?.program?.title;
     const [hasMore, setHasMore] = useState(true);
     const containerRef = useRef(null);
+    const isCancelDownload = useRef(false);
+    const [downloadProgress, set_downloadProgress] = useState(0);
 
     useEffect(() =>
     {
-        const newprogram = location.state?.program;
         getEpisodeList();
     }, []);
-
-    // Add this useEffect to check container size
-    useEffect(() =>
-    {
-        checkAndLoadMore();
-    }, [episodes]);
-
-    const checkAndLoadMore = () =>
-    {
-        if (!containerRef.current) return;
-
-        const { scrollHeight, clientHeight } = containerRef.current;
-        // If container is not scrollable (content is shorter than container)
-        if (scrollHeight <= clientHeight && hasMore && !showLoading)
-        {
-            getEpisodeList();
-        }
-    };
 
     const checkUrl = async (url) =>
     {
@@ -44,7 +30,7 @@ const SelectEpisode = () =>
         {
             const response = await axios.head(url, {
                 validateStatus: status => status < 400,
-                timeout: 5000
+                timeout: 500
             });
             return true;
         } catch (error)
@@ -53,18 +39,6 @@ const SelectEpisode = () =>
             return false;
         }
     };
-
-    async function handleScroll(e)
-    {
-        const { scrollTop, scrollHeight, clientHeight } = e.target;
-        // Check if scrolled near bottom (within 50px)
-        const isNearBottom = scrollHeight - scrollTop - clientHeight < 50;
-
-        if (isNearBottom && !showLoading && hasMore)
-        {
-            await getEpisodeList();
-        }
-    }
 
     const getEpisodeList = async () =>
     {
@@ -75,16 +49,22 @@ const SelectEpisode = () =>
         {
             const new_episodes = [];
 
-            let counter = 0;
-            while (counter < 10)
+            let failCount = 0;
+            let tryCount = 0;
+            while (new_episodes.length < 5 && failCount < 8)
             {
-                const url = `https://rthkaod2022.akamaized.net/m4a/radio/archive/radio1/itsahappyday/m4a/${getDateBeforeDays(daysBefore + counter).replaceAll('-', '')}.m4a/index_0_a.m3u8`;
+                const url = `https://rthkaod2022.akamaized.net/m4a/radio/archive/${channel}/${program}/m4a/${getDateBeforeDays(daysBefore + tryCount).replaceAll('-', '')}.m4a/index_0_a.m3u8`;
                 const valid = await checkUrl(url);
                 if (valid)
                 {
-                    new_episodes.push(getDateBeforeDays(daysBefore + counter));
+                    new_episodes.push(getDateBeforeDays(daysBefore + tryCount));
+                    failCount = 0;
                 }
-                counter++;
+                else
+                {
+                    failCount++;
+                }
+                tryCount++;
             }
 
             if (new_episodes.length === 0)
@@ -94,7 +74,7 @@ const SelectEpisode = () =>
             else
             {
                 setEpisodes(prevList => [...prevList, ...new_episodes]);
-                setDaysBefore(daysBefore + counter);
+                setDaysBefore(daysBefore + tryCount);
             }
 
         } catch (error)
@@ -107,10 +87,17 @@ const SelectEpisode = () =>
         }
     };
 
+
+    async function download(episode)
+    {
+        const segmentUrls = await getSegmentUrls(channel, program, episode.replaceAll('-',''));
+        const segmentFiles = await downloadSegments(channel, program, episode.replaceAll('-',''), segmentUrls, isCancelDownload, set_downloadProgress);
+        await mergeSegments(segmentFiles, episode, programName);
+        console.log(segmentUrls);
+    }
+
     return (
         <div
-            onScroll={handleScroll}
-            ref={containerRef}
             style={{
                 height: '100dvh', // Set a fixed height or use dynamic height
                 overflowY: 'auto',
@@ -118,12 +105,16 @@ const SelectEpisode = () =>
             }}
         >
             {episodes.map((episode, index) => (
-                <div key={index} style={{ padding: '10px', border: '1px solid #ccc', margin: '5px 0' }}>
+                <div key={index} style={{ padding: '10px', border: '1px solid #ccc', margin: '5px 0' }}
+                    onClick={() => download(episode)}
+                >
                     {episode}
                 </div>
             ))}
             {showLoading && <Loading showLoading={showLoading} />}
             {!hasMore && <div>No more episodes</div>}
+
+            {hasMore && <div onClick={() => {getEpisodeList()}}>Load More</div>}
         </div>
     );
 }

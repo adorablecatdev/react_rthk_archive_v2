@@ -6,6 +6,7 @@ import { DatePicker, Select } from "antd";
 import Loading from "../components/Loading";
 import { getCurrentDate, getDateAfterDays, getDateBeforeDays } from "../utilities/DateTime";
 import dayjs from "dayjs";
+import Navigation from "../components/Navigation";
 
 const SelectProgram = ({ }) =>
 {
@@ -15,37 +16,12 @@ const SelectProgram = ({ }) =>
     const [programList, set_programList] = useState([]);
     const [loadSegment, set_loadSegment] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const containerRef = useRef(null);
+    const programListRef = useRef(null);
 
     useEffect(() =>
     {
         getProgramList(true);
     }, [selectedStation, selectedDate]);
-
-    // Check if we should load more after the list updates
-    useEffect(() =>
-    {
-        checkAndLoadMore();
-    }, [programList]);
-
-    const checkAndLoadMore = () =>
-    {
-        if (!containerRef.current) return;
-
-        const { scrollHeight, clientHeight } = containerRef.current;
-        // If container is not scrollable (content is shorter than container)
-        if (scrollHeight <= clientHeight && hasMore && !showLoading)
-        {
-            getProgramList(false);
-        }
-    };
-
-    async function handleScroll(e)
-    {
-        const bottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 1;
-
-        if (bottom && !showLoading && hasMore) { await getProgramList(false); }
-    }
 
     async function getProgramList(reset = false)
     {
@@ -92,49 +68,68 @@ const SelectProgram = ({ }) =>
         }
     }
 
+    const scrollToTop = () => {
+        if (programListRef.current) {
+            programListRef.current.scrollTo({
+            top: 0,
+            // behavior: "smooth", // Smooth scrolling
+          });
+        }
+      };
+
     return (
-        <div>
+        <div className={styles.container}>
+            <Navigation />
             <Loading showLoading={showLoading} />
 
-            <Select
-                defaultValue="lucy"
-                style={{ width: 120 }}
-                onChange={(e) =>
-                {
-                    set_selectedStation(e);
-                    setHasMore(true);
-                    set_loadSegment(1);
-                }}
-                options={[
-                    { value: 'radio1', label: '第一台' },
-                    { value: 'radio2', label: '第二台' },
-                    { value: 'radio3', label: '第三台' },
-                    { value: 'radio4', label: '第四台' },
-                    { value: 'radio5', label: '第五台' },
-                ]}
-                value={selectedStation}
-            />
-
-            <div
-                ref={containerRef}
-                className={styles.programList}
-                onScroll={handleScroll}
-            >
-                {programList && programList.map((program, index) =>
-                    <ProgramItem key={index} program={program} />
-                )}
-
-                {showLoading && (
-                    <div style={{ textAlign: 'center', padding: '20px' }}>
-                        Loading more...
+            <div className={styles.contentContainer}>
+                <div className={styles.radioButtonContainer}>
+                    <div
+                        className={selectedStation == 'radio1' ? styles.radioButtonSelected : styles.radioButton}
+                        onClick={() => {scrollToTop(); set_selectedStation('radio1'); set_loadSegment(1); setHasMore(true); }}
+                    >
+                        第一台
                     </div>
-                )}
-
-                {!hasMore && (
-                    <div style={{ textAlign: 'center', padding: '20px' }}>
-                        No more programs to load
+                    <div
+                        className={selectedStation == 'radio2' ? styles.radioButtonSelected : styles.radioButton}
+                        onClick={() => {scrollToTop(); set_selectedStation('radio2'); set_loadSegment(1); setHasMore(true);  }}
+                    >
+                        第二台
                     </div>
-                )}
+                    <div
+                        className={selectedStation == 'radio3' ? styles.radioButtonSelected : styles.radioButton}
+                        onClick={() => {scrollToTop(); set_selectedStation('radio3'); set_loadSegment(1); setHasMore(true);  }}
+                    >
+                        第三台
+                    </div>
+                    <div
+                        className={selectedStation == 'radio4' ? styles.radioButtonSelected : styles.radioButton}
+                        onClick={() => {scrollToTop(); set_selectedStation('radio4'); set_loadSegment(1); setHasMore(true);  }}
+                    >
+                        第四台
+                    </div>
+                    <div
+                        className={selectedStation == 'radio5' ? styles.radioButtonSelected : styles.radioButton}
+                        onClick={() => {scrollToTop(); set_selectedStation('radio5'); set_loadSegment(1); setHasMore(true);  }}
+                    >
+                        第五台
+                    </div>
+                </div>
+
+                <div
+                    className={styles.programList}
+                    ref={programListRef}
+                >
+                    {programList && programList.map((program, index) =>
+                        <ProgramItem key={index} program={program} />
+                    )}
+
+                    {(hasMore || showLoading) && (
+                        <div className={styles.loadMoreBtn} onClick={() => { showLoading == false && getProgramList() }}>
+                            {showLoading ? '讀取中' : '讀取更多'}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     )
