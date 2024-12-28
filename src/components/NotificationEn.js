@@ -10,7 +10,7 @@ const NotificationEn = ({ show, message, type }) =>
             message: '提示',
             description: message
         });
-    };
+    }; 
 
     useEffect(() =>
     {
