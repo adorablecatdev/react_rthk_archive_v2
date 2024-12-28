@@ -1,0 +1,74 @@
+.mainContainer {
+    position: relative;
+    width: calc(100% - 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 5px 10px 5px 10px;
+    background-color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 0 4px var(--slate-100);
+    border: 1px solid var(--slate-200);
+    flex-wrap: nowrap;
+}
+
+.mainContainer:hover {
+    box-shadow: 0px 0px 10px var(--sky-300);
+    cursor: pointer;
+}
+
+.horizontalContainer{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.date{
+    width: 80%;
+}
+
+.icon {
+    height: 25px;
+    width: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.progressInactive{
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: unset;
+    bottom: 0px;
+    border-bottom-left-radius: 8px; 
+    border-bottom-right-radius: 8px; 
+}
+
+.progressActive{
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: var(--slate-100);
+    bottom: 0px;
+    border-bottom-left-radius: 8px; 
+    border-bottom-right-radius: 8px; 
+}
+
+.progress{
+    position: absolute;
+    height: 4px;
+    background-color: var(--sky-300);
+    bottom: 0px;
+    border-bottom-left-radius: 8px; 
+    border-bottom-right-radius: 8px; 
+}

@@ -68,49 +68,51 @@ const SelectProgram = ({ }) =>
         }
     }
 
-    const scrollToTop = () => {
-        if (programListRef.current) {
+    const scrollToTop = () =>
+    {
+        if (programListRef.current)
+        {
             programListRef.current.scrollTo({
-            top: 0,
-            // behavior: "smooth", // Smooth scrolling
-          });
+                top: 0,
+                // behavior: "smooth", // Smooth scrolling
+            });
         }
-      };
+    };
 
     return (
         <div className={styles.container}>
-            <Navigation />
+            <Navigation currentLocation={'selectProgram'} />
             <Loading showLoading={showLoading} />
 
             <div className={styles.contentContainer}>
                 <div className={styles.radioButtonContainer}>
                     <div
                         className={selectedStation == 'radio1' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => {scrollToTop(); set_selectedStation('radio1'); set_loadSegment(1); setHasMore(true); }}
+                        onClick={() => { scrollToTop(); set_selectedStation('radio1'); set_loadSegment(1); setHasMore(true); }}
                     >
                         第一台
                     </div>
                     <div
                         className={selectedStation == 'radio2' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => {scrollToTop(); set_selectedStation('radio2'); set_loadSegment(1); setHasMore(true);  }}
+                        onClick={() => { scrollToTop(); set_selectedStation('radio2'); set_loadSegment(1); setHasMore(true); }}
                     >
                         第二台
                     </div>
                     <div
                         className={selectedStation == 'radio3' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => {scrollToTop(); set_selectedStation('radio3'); set_loadSegment(1); setHasMore(true);  }}
+                        onClick={() => { scrollToTop(); set_selectedStation('radio3'); set_loadSegment(1); setHasMore(true); }}
                     >
                         第三台
                     </div>
                     <div
                         className={selectedStation == 'radio4' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => {scrollToTop(); set_selectedStation('radio4'); set_loadSegment(1); setHasMore(true);  }}
+                        onClick={() => { scrollToTop(); set_selectedStation('radio4'); set_loadSegment(1); setHasMore(true); }}
                     >
                         第四台
                     </div>
                     <div
                         className={selectedStation == 'radio5' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => {scrollToTop(); set_selectedStation('radio5'); set_loadSegment(1); setHasMore(true);  }}
+                        onClick={() => { scrollToTop(); set_selectedStation('radio5'); set_loadSegment(1); setHasMore(true); }}
                     >
                         第五台
                     </div>

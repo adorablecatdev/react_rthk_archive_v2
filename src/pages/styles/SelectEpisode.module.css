@@ -1,0 +1,96 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background-color: var(--slate-50);
+}
+
+.contentContainer {
+    width: 60%;
+    height: calc(100dvh - 80px);
+    background-color: white;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.programDetails {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.programName{
+    font-size: 18px;
+    color: var(--slate-600);
+    font-weight: bold;
+}
+
+.channel{
+    font-size: 14px;
+    color: var(--slate-600);
+    text-transform: capitalize;
+}
+
+.episodeList {
+    position: relative;
+    width: 100%;
+    overflow-y: auto;
+    height: calc(100dvh - 140px);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.loadMoreBtnActive {
+    width: calc(20% - 10px);
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: var(--sky-500);
+    color: white;
+    font-weight: bold;
+}
+
+.loadMoreBtnActive:hover{
+    background-color: var(--sky-600);
+    cursor: pointer;
+}
+
+.loadMoreBtnInactive {
+    width: calc(20% - 10px);
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: var(--sky-800);
+    color: white;
+    font-weight: bold;
+}

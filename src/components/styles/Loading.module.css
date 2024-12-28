@@ -2,10 +2,10 @@
 
 .spinnerContainer{
     position: absolute;
-    top: 50%;
+    top: calc(50% + 60px);
     left: 50%;
     width: 100%;
-    height: 100%;
+    height: calc(100dvh - 60px);
     transform: translate(-50%, -50%);
     z-index: 500;
 }

@@ -25,15 +25,29 @@
     align-items: center;
 }
 
-.icon {
+.buttonContainer{
     height: 40px;
     width: auto;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 5px 10px 5px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     transition: all 0.2s ease;
 }
 
-.icon:hover {
+.icon {
+    height: 30px;
+    width: auto;
+}
+
+.label{
+    font-size: 12px;
+    font-weight: bold;
+    color: #0EA5E9;
+}
+
+.buttonContainer:hover {
     filter: drop-shadow(0 0 20px #0EA5E9);
     transform: translateY(-2px);
     cursor: pointer;

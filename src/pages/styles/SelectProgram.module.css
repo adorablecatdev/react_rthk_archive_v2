@@ -1,11 +1,11 @@
-.container{
+.container {
     width: 100%;
     height: 100dvh;
     overflow: hidden;
     background-color: var(--slate-50);
 }
 
-.contentContainer{
+.contentContainer {
     width: 60%;
     height: calc(100dvh - 80px);
     background-color: white;
@@ -15,7 +15,7 @@
     margin-bottom: 10px;
 }
 
-.radioButtonContainer{
+.radioButtonContainer {
     width: 70%;
     height: 60px;
     display: flex;
@@ -23,9 +23,11 @@
     justify-content: space-between;
     align-items: center;
     margin: auto;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
-.radioButton{
+.radioButton {
     width: calc(20% - 10px);
     height: 40px;
     margin-top: 10px;
@@ -42,7 +44,7 @@
     font-weight: bold;
 }
 
-.radioButtonSelected{
+.radioButtonSelected {
     width: calc(20% - 10px);
     height: 40px;
     margin-top: 10px;
@@ -60,19 +62,19 @@
     font-weight: bold;
 }
 
-.radioButton:hover{
+.radioButton:hover {
     cursor: pointer;
     background-color: var(--sky-500);
     color: var(--slate-50);
 }
 
-.radioButtonSelected:hover{
+.radioButtonSelected:hover {
     cursor: pointer;
     background-color: var(--sky-500);
     color: var(--slate-50);
 }
 
-.divider{
+.divider {
     height: 1px;
     background-color: var(--slate-200);
     width: 60%;
@@ -81,18 +83,19 @@
     margin-bottom: 5px;
 }
 
-.programList{
+.programList {
     width: 100%;
     overflow: auto;
     height: calc(100dvh - 140px);
-    margin: auto;   
+    margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    padding: 10px;
 }
 
-.loadMoreBtn{
+.loadMoreBtn {
     width: calc(20% - 10px);
     height: 40px;
     margin-top: 10px;
@@ -110,7 +113,7 @@
     font-weight: bold;
 }
 
-.loadMoreBtn:hover{
+.loadMoreBtn:hover {
     background-color: var(--sky-600);
     cursor: pointer;
 }
@@ -124,22 +127,86 @@
     border: 1px solid #6B7280;
 }
 
-
-.programList::-webkit-scrollbar-track{
+.programList::-webkit-scrollbar-track {
     background: #F3F4F6;
     border-radius: 4px;
     border-radius: 4px;
     border: 1px solid #D1D5DB;
 }
 
-.programList::-webkit-scrollbar-thumb{
+.programList::-webkit-scrollbar-thumb {
     background: #6B7280;
     /* Optional: the draggable part of the scrollbar */
     border-radius: 4px;
 }
 
-.programList::-webkit-scrollbar-thumb:hover{
+.programList::-webkit-scrollbar-thumb:hover {
     background: #1F2937;
     /* Optional: color when hovered */
     border-radius: 4px;
+}
+
+@media screen and (max-width: 800px) {
+    .contentContainer {
+        width: 95%;
+        height: calc(100dvh - 70px);
+        background-color: white;
+        border-radius: 15px;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .radioButtonContainer {
+        height: 40px;
+        width: 100%;
+    }
+    
+    .radioButton {
+        width: calc(20% - 4px);
+        height: 30px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 2px;
+        margin-right: 2px;
+        padding: 2px;
+        border-radius: 15px;
+        font-size: 12px;
+    }
+    
+    .radioButtonSelected {
+        width: calc(20% - 4px);
+        height: 30px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 2px;
+        margin-right: 2px;
+        padding: 2px;
+        border-radius: 15px;
+        font-size: 12px;
+    }
+
+    .loadMoreBtn {
+        width: calc(50% - 4px);
+        height: 40px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 2px;
+        margin-right: 2px;
+        padding: 10px;
+        border-radius: 20px;
+        font-size: 12px;
+    }
+
+    .programList {
+        width: 100%;
+        overflow: auto;
+        height: calc(100dvh - 115px);
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 5px;
+    }
 }

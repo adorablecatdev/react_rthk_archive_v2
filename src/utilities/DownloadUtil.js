@@ -1,12 +1,12 @@
 import axios from "axios";
 
-async function getSegmentUrls(station, program, date)
+async function getSegmentUrls(station, program, episode, isCancelDownloadRef)
 {
     var segmentUrls = [];
 
     try
     {
-        const url = `https://rthkaod2022.akamaized.net/m4a/radio/archive/${station}/${program}/m4a/${date}.m4a/index_0_a.m3u8?`;
+        const url = `https://rthkaod2022.akamaized.net/m4a/radio/archive/${station}/${program}/m4a/${episode.replaceAll('-', '')}.m4a/index_0_a.m3u8?`;
         const response = await axios.get(url);
         const content = response.data;
 
@@ -20,25 +20,27 @@ async function getSegmentUrls(station, program, date)
     }
     catch
     {
-
+        // delete downloadControllersRef.current[episode];
+        // delete isCancelDownloadRef.current[episode];
     }
     return segmentUrls;
 }
 
-async function downloadSegments(station, program, date, segmentUrls, isCancelDownload, set_downloadProgress)
+async function downloadSegments(station, program, episode, segmentUrls, isCancelDownloadRef, set_downloadProgress)
 {
     var segmentFiles = [];
     try
     {
         for (var i = 0; i < segmentUrls.length; i++)
         {
-            if (isCancelDownload.current == false)
+            if (isCancelDownloadRef.current[episode] == false)
             {
-                const url = `https://rthkaod2022.akamaized.net/m4a/radio/archive/${station}/${program}/m4a/${date}.m4a/${segmentUrls[i]}`;
+                const url = `https://rthkaod2022.akamaized.net/m4a/radio/archive/${station}/${program}/m4a/${episode.replaceAll('-', '')}.m4a/${segmentUrls[i]}`;
                 const response = await axios.get(url, { responseType: 'arraybuffer' });
                 segmentFiles.push(response.data);
 
-                set_downloadProgress(parseInt(i * 100 / segmentUrls.length));
+
+                set_downloadProgress((prev) => ({ ...prev, [episode]: parseInt(i * 100 / segmentUrls.length) }));
             }
             else
             {
@@ -48,35 +50,43 @@ async function downloadSegments(station, program, date, segmentUrls, isCancelDow
     }
     catch
     {
-        isCancelDownload.current = true
+        delete isCancelDownloadRef.current[episode];
     }
 
     return segmentFiles;
 }
 
-async function mergeSegments(segmentFiles, date, programName)
+async function mergeSegments(segmentFiles, episode, programName, isCancelDownloadRef)
 {
     try 
     {
         const mergedBlobParts = [];
 
-        for (var i=0 ; i<segmentFiles.length ; i++)
+        for (var i = 0; i < segmentFiles.length; i++)
         {
-            mergedBlobParts.push(new Blob([segmentFiles[i]], { type: 'video/mp2t' }));
+            if (isCancelDownloadRef.current[episode] == false)
+            {
+                mergedBlobParts.push(new Blob([segmentFiles[i]], { type: 'video/mp2t' }));
+            }
         }
 
-        const mergedBlob = new Blob(mergedBlobParts, { type: 'video/mp2t' });
-        const downloadUrl = URL.createObjectURL(mergedBlob);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = downloadUrl;
-        downloadLink.download = `${programName} ${date}.ts`;
-        downloadLink.click();
+        if (isCancelDownloadRef.current[episode] == false)
+        {
+            const mergedBlob = new Blob(mergedBlobParts, { type: 'video/mp2t' });
+            const downloadUrl = URL.createObjectURL(mergedBlob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = downloadUrl;
+            downloadLink.download = `${programName} ${episode}.ts`;
+            downloadLink.click();
+        }
+
         // setDownloadProgress(100);
         // setIsDownloadFinish(true);
-    } 
+    }
     catch (error) 
     {
         console.error('Error merging TS files:', error);
+        delete isCancelDownloadRef.current[episode];
     }
 }
 

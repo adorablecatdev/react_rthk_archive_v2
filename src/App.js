@@ -9,6 +9,7 @@ function App()
         <BrowserRouter basename="/">
             <Routes>
                 <Route exact path="/" element={<SelectProgram />}></Route>
+                <Route exact path="/selectProgram" element={<SelectProgram />}></Route>
                 <Route exact path="/selectEpisode" element={<SelectEpisode />}></Route>
             </Routes>
         </BrowserRouter>
