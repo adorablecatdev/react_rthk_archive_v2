@@ -2,26 +2,36 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import ProgramItem from "../components/ProgramItem";
 import styles from "./styles/SelectProgram.module.css";
-import { DatePicker, Select } from "antd";
 import Loading from "../components/Loading";
-import { getCurrentDate, getDateAfterDays, getDateBeforeDays } from "../utilities/DateTime";
-import dayjs from "dayjs";
 import Navigation from "../components/Navigation";
+import { getStorageItem } from "../utilities/LocalStorage";
 
 const SelectProgram = ({ }) =>
 {
     const [showLoading, set_showLoading] = useState(false);
-    const [selectedDate, set_selectedDate] = useState(getCurrentDate());
     const [selectedStation, set_selectedStation] = useState('radio1');
     const [programList, set_programList] = useState([]);
     const [loadSegment, set_loadSegment] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const programListRef = useRef(null);
+    const [bookmarks, set_bookmarks] = useState({});
+
+    useEffect(() =>
+    {
+        initialize();
+    }, [])
 
     useEffect(() =>
     {
         getProgramList(true);
-    }, [selectedStation, selectedDate]);
+    }, [selectedStation]);
+
+    async function initialize()
+    {
+        const new_bookmarks = await getStorageItem('bookmarks');
+        set_bookmarks(new_bookmarks);
+        getProgramList(true);
+    }
 
     async function getProgramList(reset = false)
     {
@@ -68,16 +78,13 @@ const SelectProgram = ({ }) =>
         }
     }
 
-    const scrollToTop = () =>
+    function scrollToTop()
     {
         if (programListRef.current)
         {
-            programListRef.current.scrollTo({
-                top: 0,
-                // behavior: "smooth", // Smooth scrolling
-            });
+            programListRef.current.scrollTo({ top: 0 });
         }
-    };
+    }
 
     return (
         <div className={styles.container}>
@@ -123,11 +130,19 @@ const SelectProgram = ({ }) =>
                     ref={programListRef}
                 >
                     {programList && programList.map((program, index) =>
-                        <ProgramItem key={index} program={program} />
+                        <ProgramItem
+                            key={index}
+                            program={program}
+                            bookmarks={bookmarks}
+                            set_bookmarks={set_bookmarks}
+                        />
                     )}
 
                     {(hasMore || showLoading) && (
-                        <div className={styles.loadMoreBtn} onClick={() => { showLoading == false && getProgramList() }}>
+                        <div
+                            className={styles.loadMoreBtn}
+                            onClick={() => { showLoading == false && getProgramList() }}
+                        >
                             {showLoading ? '讀取中' : '讀取更多'}
                         </div>
                     )}

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./styles/ProgramItem.module.css";
+import styles from "./styles/BookmarkItem.module.css";
 import * as Icon from "react-bootstrap-icons";
 import { setStorageItem } from "../utilities/LocalStorage";
 
-const ProgramItem = ({ key, program, bookmarks, set_bookmarks }) =>
+const BookmarkItem = ({ key, program, bookmarks, set_bookmarks }) =>
 {
     const navigation = useNavigate();
 
@@ -30,8 +30,8 @@ const ProgramItem = ({ key, program, bookmarks, set_bookmarks }) =>
             key={key}
         >
             <div className={styles.leftContainer}>
-                <div className={styles.timeContainer}>
-                    {`${program?.latestDate}`}
+                <div className={styles.channelContainer}>
+                    {`${program?.channel}`}
                 </div>
 
                 <div className={styles.programNameAndPresenterContainer}>
@@ -49,10 +49,9 @@ const ProgramItem = ({ key, program, bookmarks, set_bookmarks }) =>
                     <Icon.BookmarkFill size={30} className={styles.bookmarkBtn} /> :
                     <Icon.Bookmark size={30} className={styles.bookmarkBtn} />
                 }
-
             </div>
         </a>
     )
 }
 
-export default ProgramItem;
+export default BookmarkItem;

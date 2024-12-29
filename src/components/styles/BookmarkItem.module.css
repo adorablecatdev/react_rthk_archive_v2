@@ -48,7 +48,7 @@
     color: var(--gray-500);
 }
 
-.timeContainer {
+.channelContainer {
     width: 20%;
     display: flex;
     flex-direction: row;
@@ -56,6 +56,7 @@
     align-items: center;
     color: var(--gray-600);
     font-size: 18px;
+    text-transform: capitalize;
 }
 
 .bookmarkBtnContainer{

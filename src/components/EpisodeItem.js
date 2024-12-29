@@ -1,12 +1,14 @@
 import styles from "./styles/EpisodeItem.module.css";
-import * as Icon from "react-ionicons";
+import * as Icon from "react-bootstrap-icons";
 
 const EpisodeItem = ({ episode, onClickDownload, onClickCancel, downloadProgress }) =>
 {
     return (
         <div className={styles.mainContainer} >
             <div className={styles.horizontalContainer}>
-                {episode}
+                <div className={styles.date}>
+                    {episode}
+                </div>
                 <div className={styles.icon}
                     onClick={() =>
                     {
@@ -17,8 +19,8 @@ const EpisodeItem = ({ episode, onClickDownload, onClickCancel, downloadProgress
                     }}
                 >
                     {episode in downloadProgress ?
-                        <Icon.CloseCircleOutline width={"100%"} height={"100%"} color={"#38BDF8"} /> :
-                        <Icon.DownloadOutline width={"100%"} height={"100%"} color={"#38BDF8"} />
+                        <Icon.XCircle width={"100%"} height={"100%"} color={"#38BDF8"} /> :
+                        <Icon.Download width={"100%"} height={"100%"} color={"#38BDF8"} />
                     }
                 </div>
             </div>

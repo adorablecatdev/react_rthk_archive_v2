@@ -124,25 +124,22 @@
     width: 5px;
     border-radius: 4px;
     border-radius: 4px;
-    border: 1px solid #6B7280;
 }
 
 .programList::-webkit-scrollbar-track {
-    background: #F3F4F6;
+    background: var(--slate-100);
     border-radius: 4px;
     border-radius: 4px;
-    border: 1px solid #D1D5DB;
+    border: 1px solid var(--slate-200);
 }
 
 .programList::-webkit-scrollbar-thumb {
-    background: #6B7280;
-    /* Optional: the draggable part of the scrollbar */
+    background: var(--slate-400);
     border-radius: 4px;
 }
 
 .programList::-webkit-scrollbar-thumb:hover {
-    background: #1F2937;
-    /* Optional: color when hovered */
+    background: var(--slate-500);
     border-radius: 4px;
 }
 

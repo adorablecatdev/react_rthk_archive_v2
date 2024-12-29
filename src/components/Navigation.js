@@ -1,7 +1,6 @@
 import styles from "./styles/Navigation.module.css";
-import * as Icon from "react-ionicons";
+import * as Icon from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
-import styled from 'styled-components';
 
 const Navigation = ({ currentLocation }) =>
 {
@@ -13,8 +12,8 @@ const Navigation = ({ currentLocation }) =>
                 <div className={styles.buttonContainer} onClick={() => { navigation("/") }}>
                     <div className={styles.icon} >
                         {currentLocation == 'home' ?
-                            <Icon.Home width={"100%"} height={"100%"} color={"#38BDF8"} /> :
-                            <Icon.HomeOutline width={"100%"} height={"100%"} color={"#38BDF8"} />
+                            <Icon.HouseFill width={"100%"} height={"100%"} color={"#38BDF8"} /> :
+                            <Icon.House width={"100%"} height={"100%"} color={"#38BDF8"} />
                         }
 
                     </div>
@@ -26,8 +25,8 @@ const Navigation = ({ currentLocation }) =>
                 <div className={styles.buttonContainer} onClick={() => { navigation("/selectProgram") }}>
                     <div className={styles.icon}>
                         {currentLocation == 'selectProgram' ?
-                            <Icon.Mic width={"100%"} height={"100%"} color={"#38BDF8"} /> :
-                            <Icon.MicOutline width={"100%"} height={"100%"} color={"#38BDF8"} />
+                            <Icon.Broadcast width={"100%"} height={"100%"} color={"#38BDF8"} /> :
+                            <Icon.Broadcast width={"100%"} height={"100%"} color={"#38BDF8"} />
                         }
                     </div>
                     <div className={styles.label}>
@@ -35,11 +34,11 @@ const Navigation = ({ currentLocation }) =>
                     </div>
                 </div>
 
-                <div className={styles.buttonContainer}>
+                <div className={styles.buttonContainer} onClick={() => { navigation("/bookmark") }}>
                     <div className={styles.icon}>
                         {currentLocation == 'bookmark' ?
-                            <Icon.Bookmark width={"100%"} height={"100%"} color={"#38BDF8"} /> :
-                            <Icon.BookmarkOutline width={"100%"} height={"100%"} color={"#38BDF8"} />
+                            <Icon.BookmarkFill width={"100%"} height={"100%"} color={"#38BDF8"} /> :
+                            <Icon.Bookmark width={"100%"} height={"100%"} color={"#38BDF8"} />
                         }
                     </div>
                     <div className={styles.label}>
@@ -51,8 +50,8 @@ const Navigation = ({ currentLocation }) =>
                 <div className={styles.buttonContainer}>
                     <div className={styles.icon}>
                         {currentLocation == 'settings' ?
-                            <Icon.Settings width={"100%"} height={"100%"} color={"#38BDF8"} /> :
-                            <Icon.SettingsOutline width={"100%"} height={"100%"} color={"#38BDF8"} />
+                            <Icon.GearFill width={"100%"} height={"100%"} color={"#38BDF8"} /> :
+                            <Icon.Gear width={"100%"} height={"100%"} color={"#38BDF8"} />
                         }
                     </div>
                     <div className={styles.label}>
