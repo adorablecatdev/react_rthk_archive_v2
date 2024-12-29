@@ -8,47 +8,66 @@
     padding-right: 20%;
     border-bottom: 1px solid var(--slate-200);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
 }
 
 .leftContainer {
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
 }
 
+.homeBtnContainer {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.homeBtnIcon {
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+}
+
+.homeBtnText {
+    color: var(--slate-600);
+    font-size: 18px;
+    margin: 5px;
+}
+
+.homeBtnContainer:hover {
+    filter: drop-shadow(0 0 10px var(--sky-300));
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
 .rightContainer {
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
 }
 
-.buttonContainer{
-    height: 40px;
-    width: auto;
-    margin: 5px 10px 5px 10px;
+.btnIcon {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease;
+    color: var(--slate-500);
 }
 
-.icon {
-    height: 30px;
-    width: auto;
-}
 
-.label{
-    font-size: 12px;
-    font-weight: bold;
-    color: #0EA5E9;
-}
-
-.buttonContainer:hover {
-    filter: drop-shadow(0 0 20px #0EA5E9);
+.btnIcon:hover {
+    filter: drop-shadow(0 0 10px var(--sky-500));
     transform: translateY(-2px);
     cursor: pointer;
 }
@@ -56,13 +75,25 @@
 @media screen and (max-width: 800px) {
     .container {
         height: 50px;
-        padding-left: 3%;
-        padding-right: 3%;
+        padding-left: 2%;
+        padding-right: 2%;
     }
 
-    .icon {
+    .homeBtnIcon {
         height: 30px;
-        margin-left: 6px;
-        margin-right: 6px;
+        width: 30px;
+        margin: 2px;
+    }
+    
+    .homeBtnText {
+        color: var(--slate-600);
+        font-size: 14px;
+        margin: 2px;
+    }
+
+    .btnIcon {
+        width: 40px;
+        height: 40px;
+        margin: 2px;
     }
 }

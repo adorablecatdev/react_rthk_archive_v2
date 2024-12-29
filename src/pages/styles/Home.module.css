@@ -17,6 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
 
 .logo{
@@ -42,6 +43,59 @@
     margin-bottom: 5px;
 }
 
+.btnContainer{
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--slate-200);
+    border-radius: 8px;
+    padding: 10px 20px 10px 20px;
+    margin: 5px;
+}
+
+.btnIcon{
+    color: var(--slate-500);
+    margin: 5px;
+}
+
+.btnText{
+    color: var(--slate-500);
+    font-size: 20px;
+    margin: 5px;
+}
+
+.btnContainer:hover{
+    border: 1px solid var(--sky-300);
+    box-shadow: 0 0 10px var(--sky-300);
+    cursor: pointer;
+}
+
+.contentContainer::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+    border-radius: 4px;
+    border-radius: 4px;
+}
+
+.contentContainer::-webkit-scrollbar-track {
+    background: var(--slate-100);
+    border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid var(--slate-200);
+}
+
+.contentContainer::-webkit-scrollbar-thumb {
+    background: var(--slate-400);
+    border-radius: 4px;
+}
+
+.contentContainer::-webkit-scrollbar-thumb:hover {
+    background: var(--slate-500);
+    border-radius: 4px;
+}
+
 @media screen and (max-width: 800px) {
     .contentContainer {
         width: 95%;
@@ -53,15 +107,7 @@
         margin-bottom: 10px;
     }
 
-    .bookmarkList {
-        width: 100%;
-        overflow: auto;
-        height: calc(100dvh - 75px);
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 5px;
+    .btnContainer{
+        width: 70%;
     }
 }

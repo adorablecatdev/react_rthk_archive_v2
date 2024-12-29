@@ -7,12 +7,13 @@
 
 .contentContainer {
     width: 60%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20%;
+    margin-right: 20%;
     height: calc(100dvh - 80px);
     background-color: white;
     border-radius: 20px;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .radioButtonContainer {
@@ -23,8 +24,6 @@
     justify-content: space-between;
     align-items: center;
     margin: auto;
-    padding-left: 5px;
-    padding-right: 5px;
 }
 
 .radioButton {
@@ -34,13 +33,12 @@
     margin-bottom: 10px;
     margin-left: 5px;
     margin-right: 5px;
-    padding: 5px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    color: var(--sky-500);
+    color: var(--sky-400);
     font-weight: bold;
 }
 
@@ -51,48 +49,37 @@
     margin-bottom: 10px;
     margin-left: 5px;
     margin-right: 5px;
-    padding: 5px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    background-color: var(--sky-500);
+    background-color: var(--sky-400);
     color: var(--slate-50);
     font-weight: bold;
 }
 
 .radioButton:hover {
     cursor: pointer;
-    background-color: var(--sky-500);
+    background-color: var(--sky-400);
     color: var(--slate-50);
 }
 
 .radioButtonSelected:hover {
     cursor: pointer;
-    background-color: var(--sky-500);
+    background-color: var(--sky-400);
     color: var(--slate-50);
-}
-
-.divider {
-    height: 1px;
-    background-color: var(--slate-200);
-    width: 60%;
-    margin: auto;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 .programList {
     width: 100%;
     overflow: auto;
     height: calc(100dvh - 140px);
-    margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 10px;
+    border-radius: 20px;
 }
 
 .loadMoreBtn {
@@ -117,7 +104,6 @@
     background-color: var(--sky-600);
     cursor: pointer;
 }
-
 
 .programList::-webkit-scrollbar {
     height: 5px;
@@ -146,17 +132,16 @@
 @media screen and (max-width: 800px) {
     .contentContainer {
         width: 95%;
-        height: calc(100dvh - 70px);
-        background-color: white;
-        border-radius: 15px;
-        margin: auto;
         margin-top: 10px;
         margin-bottom: 10px;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+        height: calc(100dvh - 70px);
     }
 
     .radioButtonContainer {
+        width: 95%;
         height: 40px;
-        width: 100%;
     }
     
     .radioButton {
@@ -196,14 +181,7 @@
     }
 
     .programList {
-        width: 100%;
-        overflow: auto;
-        height: calc(100dvh - 115px);
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 5px;
+        height: calc(100dvh - 110px);
+        border-radius: 20px;
     }
 }

@@ -5,9 +5,11 @@ import styles from "./styles/SelectProgram.module.css";
 import Loading from "../components/Loading";
 import Navigation from "../components/Navigation";
 import { getStorageItem } from "../utilities/LocalStorage";
+import { Fade } from "react-bootstrap";
 
 const SelectProgram = ({ }) =>
 {
+    const [showContent, set_showContent] = useState(false);
     const [showLoading, set_showLoading] = useState(false);
     const [selectedStation, set_selectedStation] = useState('radio1');
     const [programList, set_programList] = useState([]);
@@ -75,6 +77,7 @@ const SelectProgram = ({ }) =>
         finally 
         {
             set_showLoading(false);
+            set_showContent(true);
         }
     }
 
@@ -91,63 +94,65 @@ const SelectProgram = ({ }) =>
             <Navigation currentLocation={'selectProgram'} />
             <Loading showLoading={showLoading} />
 
-            <div className={styles.contentContainer}>
-                <div className={styles.radioButtonContainer}>
-                    <div
-                        className={selectedStation == 'radio1' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => { scrollToTop(); set_selectedStation('radio1'); set_loadSegment(1); setHasMore(true); }}
-                    >
-                        第一台
-                    </div>
-                    <div
-                        className={selectedStation == 'radio2' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => { scrollToTop(); set_selectedStation('radio2'); set_loadSegment(1); setHasMore(true); }}
-                    >
-                        第二台
-                    </div>
-                    <div
-                        className={selectedStation == 'radio3' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => { scrollToTop(); set_selectedStation('radio3'); set_loadSegment(1); setHasMore(true); }}
-                    >
-                        第三台
-                    </div>
-                    <div
-                        className={selectedStation == 'radio4' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => { scrollToTop(); set_selectedStation('radio4'); set_loadSegment(1); setHasMore(true); }}
-                    >
-                        第四台
-                    </div>
-                    <div
-                        className={selectedStation == 'radio5' ? styles.radioButtonSelected : styles.radioButton}
-                        onClick={() => { scrollToTop(); set_selectedStation('radio5'); set_loadSegment(1); setHasMore(true); }}
-                    >
-                        第五台
-                    </div>
-                </div>
-
-                <div
-                    className={styles.programList}
-                    ref={programListRef}
-                >
-                    {programList && programList.map((program, index) =>
-                        <ProgramItem
-                            key={index}
-                            program={program}
-                            bookmarks={bookmarks}
-                            set_bookmarks={set_bookmarks}
-                        />
-                    )}
-
-                    {(hasMore || showLoading) && (
+            <Fade in={showContent}>
+                <div className={styles.contentContainer}>
+                    <div className={styles.radioButtonContainer}>
                         <div
-                            className={styles.loadMoreBtn}
-                            onClick={() => { showLoading == false && getProgramList() }}
+                            className={selectedStation == 'radio1' ? styles.radioButtonSelected : styles.radioButton}
+                            onClick={() => { scrollToTop(); set_selectedStation('radio1'); set_loadSegment(1); setHasMore(true); }}
                         >
-                            {showLoading ? '讀取中' : '讀取更多'}
+                            第一台
                         </div>
-                    )}
+                        <div
+                            className={selectedStation == 'radio2' ? styles.radioButtonSelected : styles.radioButton}
+                            onClick={() => { scrollToTop(); set_selectedStation('radio2'); set_loadSegment(1); setHasMore(true); }}
+                        >
+                            第二台
+                        </div>
+                        <div
+                            className={selectedStation == 'radio3' ? styles.radioButtonSelected : styles.radioButton}
+                            onClick={() => { scrollToTop(); set_selectedStation('radio3'); set_loadSegment(1); setHasMore(true); }}
+                        >
+                            第三台
+                        </div>
+                        <div
+                            className={selectedStation == 'radio4' ? styles.radioButtonSelected : styles.radioButton}
+                            onClick={() => { scrollToTop(); set_selectedStation('radio4'); set_loadSegment(1); setHasMore(true); }}
+                        >
+                            第四台
+                        </div>
+                        <div
+                            className={selectedStation == 'radio5' ? styles.radioButtonSelected : styles.radioButton}
+                            onClick={() => { scrollToTop(); set_selectedStation('radio5'); set_loadSegment(1); setHasMore(true); }}
+                        >
+                            第五台
+                        </div>
+                    </div>
+
+                    <div
+                        className={styles.programList}
+                        ref={programListRef}
+                    >
+                        {programList && programList.map((program, index) =>
+                            <ProgramItem
+                                key={index}
+                                program={program}
+                                bookmarks={bookmarks}
+                                set_bookmarks={set_bookmarks}
+                            />
+                        )}
+
+                        {(hasMore || showLoading) && (
+                            <div
+                                className={styles.loadMoreBtn}
+                                onClick={() => { showLoading == false && getProgramList() }}
+                            >
+                                {showLoading ? '讀取中' : '讀取更多'}
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
+            </Fade>
         </div>
     )
 }
