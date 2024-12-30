@@ -1,11 +1,12 @@
 .mainContainer {
     position: relative;
-    width: calc(100% - 20px);
+    width: calc(100% - 10px);
+    height: auto;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 10px 10px 10px 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
     background-color: white;
     border-radius: 8px;
     text-decoration: none;
@@ -15,7 +16,9 @@
 }
 
 .mainContainer:hover {
+    border: 1px solid var(--sky-300);
     box-shadow: 0px 0px 10px var(--sky-300);
+    cursor: pointer;
 }
 
 .horizontalContainer {
@@ -30,7 +33,7 @@
 
 .date {
     width: 80%;
-    color: var(--slate-600);
+    color: var(--slate-500);
 }
 
 .icon {
@@ -66,6 +69,7 @@
     bottom: 0px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+    overflow: hidden;
 }
 
 .progress {
@@ -73,14 +77,15 @@
     height: 4px;
     background-color: var(--sky-300);
     bottom: 0px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    /* border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px; */
 }
 
 @media screen and (max-width: 800px) {
     .mainContainer {
-        width: calc(100% - 8px);
-        margin: 4px;
+        width: calc(100% - 10px);
+        margin: 5px;
         flex-wrap: wrap;
     }
+
 }

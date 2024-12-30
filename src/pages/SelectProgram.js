@@ -6,6 +6,8 @@ import Loading from "../components/Loading";
 import Navigation from "../components/Navigation";
 import { getStorageItem } from "../utilities/LocalStorage";
 import { Fade } from "react-bootstrap";
+import ChannelButton from "../components/ChannelButton";
+import LoadMoreButton from "../components/LoadMoreButton";
 
 const SelectProgram = ({ }) =>
 {
@@ -42,6 +44,7 @@ const SelectProgram = ({ }) =>
         set_showLoading(true);
         try
         {
+            // await new Promise(r => setTimeout(r, 5000));
             const segment = reset ? 1 : loadSegment;
             const url = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(`https://www.rthk.hk/archive/archive_channel/${selectedStation}_latest/${segment}`);
 
@@ -96,43 +99,37 @@ const SelectProgram = ({ }) =>
 
             <Fade in={showContent}>
                 <div className={styles.contentContainer}>
+
                     <div className={styles.radioButtonContainer}>
-                        <div
-                            className={selectedStation == 'radio1' ? styles.radioButtonSelected : styles.radioButton}
+                        <ChannelButton
+                            text={'第一台'}
                             onClick={() => { scrollToTop(); set_selectedStation('radio1'); set_loadSegment(1); setHasMore(true); }}
-                        >
-                            第一台
-                        </div>
-                        <div
-                            className={selectedStation == 'radio2' ? styles.radioButtonSelected : styles.radioButton}
+                            isSelected={selectedStation == 'radio1'}
+                        />
+                        <ChannelButton
+                            text={'第二台'}
                             onClick={() => { scrollToTop(); set_selectedStation('radio2'); set_loadSegment(1); setHasMore(true); }}
-                        >
-                            第二台
-                        </div>
-                        <div
-                            className={selectedStation == 'radio3' ? styles.radioButtonSelected : styles.radioButton}
+                            isSelected={selectedStation == 'radio2'}
+                        />
+                        <ChannelButton
+                            text={'第三台'}
                             onClick={() => { scrollToTop(); set_selectedStation('radio3'); set_loadSegment(1); setHasMore(true); }}
-                        >
-                            第三台
-                        </div>
-                        <div
-                            className={selectedStation == 'radio4' ? styles.radioButtonSelected : styles.radioButton}
+                            isSelected={selectedStation == 'radio3'}
+                        />
+                        <ChannelButton
+                            text={'第四台'}
                             onClick={() => { scrollToTop(); set_selectedStation('radio4'); set_loadSegment(1); setHasMore(true); }}
-                        >
-                            第四台
-                        </div>
-                        <div
-                            className={selectedStation == 'radio5' ? styles.radioButtonSelected : styles.radioButton}
+                            isSelected={selectedStation == 'radio4'}
+                        />
+                        <ChannelButton
+                            text={'第五台'}
                             onClick={() => { scrollToTop(); set_selectedStation('radio5'); set_loadSegment(1); setHasMore(true); }}
-                        >
-                            第五台
-                        </div>
+                            isSelected={selectedStation == 'radio5'}
+                        />
                     </div>
 
-                    <div
-                        className={styles.programList}
-                        ref={programListRef}
-                    >
+                    <div className={styles.programList} ref={programListRef}>
+                        
                         {programList && programList.map((program, index) =>
                             <ProgramItem
                                 key={index}
@@ -142,18 +139,17 @@ const SelectProgram = ({ }) =>
                             />
                         )}
 
-                        {(hasMore || showLoading) && (
-                            <div
-                                className={styles.loadMoreBtn}
+                        {(hasMore || showLoading) &&
+                            <LoadMoreButton
+                                text={showLoading ? '讀取中' : '讀取更多'}
                                 onClick={() => { showLoading == false && getProgramList() }}
-                            >
-                                {showLoading ? '讀取中' : '讀取更多'}
-                            </div>
-                        )}
+                                isLoading={showLoading}
+                            />
+                        }
                     </div>
                 </div>
-            </Fade>
-        </div>
+            </Fade >
+        </div >
     )
 }
 

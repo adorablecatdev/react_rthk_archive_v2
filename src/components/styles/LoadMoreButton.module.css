@@ -1,0 +1,47 @@
+.buttonActive {
+    width: calc(30% - 10px);
+    height: auto;
+    margin: 5px;
+    padding: 10px;
+    color: var(--slate-500);
+    border: 1px solid var(--slate-200);
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.buttonInactive {
+    width: calc(30% - 10px);
+    height: auto;
+    margin: 5px;
+    padding: 10px;
+    color: var(--slate-500);
+    border: 1px solid var(--slate-300);
+    background-color: var(--slate-100);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.buttonActive:hover {
+    cursor: pointer;
+    border: 1px solid var(--sky-400);
+    box-shadow: 0 0 10px var(--sky-400);
+}
+
+@media screen and (max-width: 800px) {
+    .buttonActive {
+        width: calc(60% - 10px);
+    }
+
+    .buttonInactive {
+        width: calc(60% - 10px);
+    }
+}

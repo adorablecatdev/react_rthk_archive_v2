@@ -7,7 +7,8 @@ import Loading from "../components/Loading";
 import styles from "./styles/SelectEpisode.module.css";
 import Navigation from "../components/Navigation";
 import EpisodeItem from "../components/EpisodeItem";
-import { Spinner } from "react-bootstrap";
+import { Fade, Spinner } from "react-bootstrap";
+import LoadMoreButton from "../components/LoadMoreButton";
 
 const SelectEpisode = () =>
 {
@@ -20,6 +21,7 @@ const SelectEpisode = () =>
     const [daysBefore, setDaysBefore] = useState(0);
     const [hasMore, setHasMore] = useState(true);
 
+    const [showContent, set_showContent] = useState(false);
     const [showLoading, set_showLoading] = useState(false);
     const [downloadProgress, set_downloadProgress] = useState({});
     const isCancelDownloadRef = useRef({});
@@ -103,6 +105,7 @@ const SelectEpisode = () =>
         finally
         {
             set_showLoading(false);
+            set_showContent(true);
         }
     }
 
@@ -157,38 +160,39 @@ const SelectEpisode = () =>
     return (
         <div className={styles.container}>
             <Navigation currentLocation={'selectProgram'} />
+            <Loading showLoading={showLoading} />
 
-            <div className={styles.contentContainer}>
-                {/* <Loading showLoading={showLoading} /> */}
+            <Fade in={showContent}>
+                <div className={styles.contentContainer}>
 
-                {/* PROGRAM DETAILS */}
-                <div className={styles.programDetails}>
-                    <div className={styles.channel}>{channel}</div>
-                    <div className={styles.programName}>{programName}</div>
+                    {/* PROGRAM DETAILS */}
+                    <div className={styles.programDetails}>
+                        <div className={styles.channel}>{channel}</div>
+                        <div className={styles.programName}>{programName}</div>
+                    </div>
+
+                    {/* EPISODE LIST */}
+                    <div className={styles.episodeList} >
+                        {episodes.map((episode, index) =>
+                            <EpisodeItem
+                                episode={episode}
+                                onClickDownload={() => startDownload(episode)}
+                                onClickCancel={() => { cancelDownload(episode) }}
+                                downloadProgress={downloadProgress}
+                            />
+                        )}
+
+
+                        {(hasMore || showLoading) &&
+                            <LoadMoreButton
+                                text={showLoading ? '讀取中' : '讀取更多'}
+                                onClick={() => { showLoading == false && getEpisodeList() }}
+                                isLoading={showLoading}
+                            />
+                        }
+                    </div>
                 </div>
-
-                {/* EPISODE LIST */}
-                <div className={styles.episodeList} >
-                    {episodes.map((episode, index) =>
-                        <EpisodeItem
-                            episode={episode}
-                            onClickDownload={() => startDownload(episode)}
-                            onClickCancel={() => { cancelDownload(episode) }}
-                            downloadProgress={downloadProgress}
-                        />
-                    )}
-
-                    {(hasMore || showLoading) &&
-                        <div
-                            className={showLoading ? styles.loadMoreBtnInactive : styles.loadMoreBtnActive}
-                            onClick={() => { showLoading == false && getEpisodeList() }}
-                        >
-                            {showLoading ? '讀取中' : '讀取更多'}
-                            {showLoading &&  <Spinner animation="border" size="sm" variant="light" style={{ marginLeft:'5px'}} />}
-                        </div>
-                    }
-                </div>
-            </div>
+            </Fade>
         </div>
     );
 }

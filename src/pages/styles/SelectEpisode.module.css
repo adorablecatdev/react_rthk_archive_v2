@@ -7,92 +7,49 @@
 }
 
 .contentContainer {
-    width: 60%;
-    height: calc(100dvh - 80px);
-    background-color: white;
-    border-radius: 20px;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    height: calc(100dvh - 60px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
 }
 
 .programDetails {
-    width: 100%;
-    height: 60px;
+    width: 40%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    margin: auto;
-    padding-left: 30px;
-    padding-right: 30px;
+    align-items: center;
+    padding: 10px;
+    border-right: 1px solid var(--slate-200);
 }
 
 .programName{
-    font-size: 18px;
-    color: var(--slate-600);
+    font-size: 24px;
+    color: var(--slate-500);
     font-weight: bold;
 }
 
 .channel{
-    font-size: 14px;
-    color: var(--slate-600);
+    font-size: 20px;
+    color: var(--slate-500);
     text-transform: capitalize;
 }
 
 .episodeList {
-    position: relative;
-    width: 100%;
-    overflow-y: auto;
-    height: calc(100dvh - 140px);
-    margin: auto;
+    width: 80%;
+    overflow: auto;
+    height: calc(100dvh - 60px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding: 10px;
-    box-sizing: border-box;
-}
-
-.loadMoreBtnActive {
-    width: calc(20% - 10px);
-    height: 40px;
-    margin-top: 10px;
-    margin-bottom: 40px;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    background-color: var(--sky-500);
-    color: white;
-    font-weight: bold;
-}
-
-.loadMoreBtnActive:hover{
-    background-color: var(--sky-600);
-    cursor: pointer;
-}
-
-.loadMoreBtnInactive {
-    width: calc(20% - 10px);
-    height: 40px;
-    margin-top: 10px;
-    margin-bottom: 40px;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    background-color: var(--sky-800);
-    color: white;
-    font-weight: bold;
 }
 
 .episodeList::-webkit-scrollbar {
@@ -121,48 +78,35 @@
 
 @media screen and (max-width: 800px) {
     .contentContainer {
-        width: 95%;
-        height: calc(100dvh - 70px);
-        background-color: white;
-        border-radius: 15px;
-        margin: auto;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        width: 100%;
+        margin-left: 0%;
+        margin-right: 0%;
+        height: calc(100dvh - 50px);
+        flex-wrap: wrap;
     }
 
-    .loadMoreBtnActive {
-        width: calc(50% - 4px);
-        height: 40px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 2px;
-        margin-right: 2px;
-        padding: 10px;
-        border-radius: 20px;
-        font-size: 12px;
+    .programDetails {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 5px;
+        border-right: 0px solid black;
     }
-
-    .loadMoreBtnInactive {
-        width: calc(50% - 4px);
-        height: 40px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 2px;
-        margin-right: 2px;
-        padding: 10px;
-        border-radius: 20px;
-        font-size: 12px;
+    
+    .programName{
+        font-size: 18px;
+    }
+    
+    .channel{
+        font-size: 14px;
     }
 
     .episodeList {
         width: 100%;
-        overflow: auto;
-        height: calc(100dvh - 135px);
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
+        height: calc(100dvh - 100px);
         padding: 5px;
     }
 }

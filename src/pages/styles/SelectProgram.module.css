@@ -6,103 +6,37 @@
 }
 
 .contentContainer {
-    width: 60%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 20%;
-    margin-right: 20%;
-    height: calc(100dvh - 80px);
-    background-color: white;
-    border-radius: 20px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    height: calc(100dvh - 60px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
 }
 
 .radioButtonContainer {
-    width: 70%;
-    height: 60px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: auto;
-}
-
-.radioButton {
-    width: calc(20% - 10px);
-    height: 40px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    color: var(--sky-400);
-    font-weight: bold;
-}
-
-.radioButtonSelected {
-    width: calc(20% - 10px);
-    height: 40px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    background-color: var(--sky-400);
-    color: var(--slate-50);
-    font-weight: bold;
-}
-
-.radioButton:hover {
-    cursor: pointer;
-    background-color: var(--sky-400);
-    color: var(--slate-50);
-}
-
-.radioButtonSelected:hover {
-    cursor: pointer;
-    background-color: var(--sky-400);
-    color: var(--slate-50);
-}
-
-.programList {
-    width: 100%;
-    overflow: auto;
-    height: calc(100dvh - 140px);
+    width: 20%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    border-radius: 20px;
+    padding: 10px;
+    border-right: 1px solid var(--slate-200);
 }
 
-.loadMoreBtn {
-    width: calc(20% - 10px);
-    height: 40px;
-    margin-top: 10px;
-    margin-bottom: 40px;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding: 5px;
+.programList {
+    width: 80%;
+    overflow: auto;
+    height: calc(100dvh - 60px);
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    border-radius: 20px;
-    background-color: var(--sky-500);
-    color: white;
-    font-weight: bold;
-}
-
-.loadMoreBtn:hover {
-    background-color: var(--sky-600);
-    cursor: pointer;
+    padding: 10px;
 }
 
 .programList::-webkit-scrollbar {
@@ -131,57 +65,27 @@
 
 @media screen and (max-width: 800px) {
     .contentContainer {
-        width: 95%;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-left: 2.5%;
-        margin-right: 2.5%;
-        height: calc(100dvh - 70px);
+        width: 100%;
+        margin-left: 0%;
+        margin-right: 0%;
+        height: calc(100dvh - 50px);
+        flex-wrap: wrap;
     }
 
     .radioButtonContainer {
-        width: 95%;
-        height: 40px;
-    }
-    
-    .radioButton {
-        width: calc(20% - 4px);
-        height: 30px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 2px;
-        margin-right: 2px;
-        padding: 2px;
-        border-radius: 15px;
-        font-size: 12px;
-    }
-    
-    .radioButtonSelected {
-        width: calc(20% - 4px);
-        height: 30px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 2px;
-        margin-right: 2px;
-        padding: 2px;
-        border-radius: 15px;
-        font-size: 12px;
-    }
-
-    .loadMoreBtn {
-        width: calc(50% - 4px);
-        height: 40px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 2px;
-        margin-right: 2px;
-        padding: 10px;
-        border-radius: 20px;
-        font-size: 12px;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        border-right: 0px solid black;
     }
 
     .programList {
-        height: calc(100dvh - 110px);
-        border-radius: 20px;
+        width: 100%;
+        height: calc(100dvh - 100px);
+        padding: 5px;
     }
 }

@@ -1,11 +1,11 @@
 .mainContainer {
-    width: calc(100% - 20px);
+    width: calc(100% - 10px);
     height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 10px 10px 10px;
+    margin: 5px;
     padding: 10px;
     background-color: white;
     border-radius: 8px;
@@ -39,13 +39,13 @@
 
 .programName {
     font-size: 18px;
-    color: var(--gray-600);
+    color: var(--gray-500);
     font-weight: bold;
 }
 
 .presenter {
     font-size: 14px;
-    color: var(--gray-500);
+    color: var(--gray-400);
 }
 
 .channelContainer {
@@ -54,7 +54,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    color: var(--gray-600);
+    color: var(--gray-500);
     font-size: 18px;
     text-transform: capitalize;
 }
@@ -80,10 +80,19 @@
 
 @media screen and (max-width: 800px) {
     .mainContainer {
-        width: calc(100% - 8px);
-        margin: 4px;
+        width: calc(100% - 10px);
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 5px;
         padding: 10px;
+        background-color: white;
         border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 0 4px var(--slate-100);
+        border: 1px solid var(--slate-200);
         flex-wrap: wrap;
     }
 
@@ -102,7 +111,6 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        color: var(--gray-600);
         font-size: 12px;
     }
 
@@ -116,12 +124,10 @@
     
     .programName {
         font-size: 16px;
-        color: var(--gray-600);
         font-weight: bold;
     }
     
     .presenter {
         font-size: 12px;
-        color: var(--gray-500);
     }
 }

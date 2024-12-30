@@ -1,0 +1,52 @@
+.button {
+    width: calc(100% - 10px);
+    height: auto;
+    margin: 5px;
+    padding: 10px;
+    color: var(--slate-500);
+    border: 1px solid var(--slate-200);
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.buttonSelected {
+    width: calc(100% - 10px);
+    height: auto;
+    margin: 5px;
+    padding: 10px;
+    color: var(--slate-500);
+    border: 1px solid var(--slate-200);
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--teal-400);
+}
+
+.button:hover {
+    cursor: pointer;
+    border: 1px solid var(--sky-400);
+    box-shadow: 0 0 10px var(--sky-400);
+}
+
+@media screen and (max-width: 800px) {
+    .button {
+        height: 40px;
+        font-size: 12px;
+        padding: 0px;
+    }
+
+    .buttonSelected {
+        height: 40px;
+        font-size: 12px;
+        padding: 0px;
+    }
+}
