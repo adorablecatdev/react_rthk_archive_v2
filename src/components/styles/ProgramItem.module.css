@@ -13,6 +13,7 @@
     box-shadow: 0 0 4px var(--slate-100);
     border: 1px solid var(--slate-200);
     flex-wrap: nowrap;
+    text-decoration: none;
 }
 
 .mainContainer:hover {
@@ -28,6 +29,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-wrap: nowrap;
+    text-decoration: none;
 }
 
 .programNameAndPresenterContainer {

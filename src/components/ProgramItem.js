@@ -22,16 +22,14 @@ const ProgramItem = ({ key, program, bookmarks, set_bookmarks }) =>
     }
 
     return (
-        <Link
+        <div
             key={key}
             className={styles.mainContainer}
-            to={`/selectEpisode?channel=${program?.channel}&program=${program?.folder}&programName=${program?.title}`} state={{ program }}>
-            {/* <a
-           
-            onClick={() => navigation(`/selectEpisode`, { state: { program } })}
-          
-        > */}
-            <div className={styles.leftContainer}>
+        >
+            <Link
+                className={styles.leftContainer}
+                to={`/selectEpisode?channel=${program?.channel}&program=${program?.folder}&programName=${program?.title}`} state={{ program }}
+            >
                 <div className={styles.timeContainer}>
                     {`${program?.latestDate}`}
                 </div>
@@ -44,7 +42,7 @@ const ProgramItem = ({ key, program, bookmarks, set_bookmarks }) =>
                         {program?.producer || '-'}
                     </div>
                 </div>
-            </div>
+            </Link>
 
             <div className={styles.bookmarkBtnContainer} onClick={(e) => { onClickBookmarkBtn(e, program); }}>
                 {program?.folder in bookmarks ?
@@ -53,7 +51,7 @@ const ProgramItem = ({ key, program, bookmarks, set_bookmarks }) =>
                 }
 
             </div>
-        </Link>
+        </div>
     )
 }
 
