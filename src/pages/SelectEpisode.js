@@ -9,13 +9,16 @@ import Navigation from "../components/Navigation";
 import EpisodeItem from "../components/EpisodeItem";
 import { Fade, Spinner } from "react-bootstrap";
 import LoadMoreButton from "../components/LoadMoreButton";
+import Error from "../components/Error";
 
 const SelectEpisode = () =>
 {
     const location = useLocation();
-    const program = location.state?.program?.folder;
-    const channel = location.state?.program?.channel;
-    const programName = location.state?.program?.title;
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const [channel, set_channel] = useState('');
+    const [programName, set_programName] = useState('');
+    const [program, set_program] = useState('');
 
     const [episodes, setEpisodes] = useState([]);
     const [daysBefore, setDaysBefore] = useState(0);
@@ -62,36 +65,62 @@ const SelectEpisode = () =>
         set_showLoading(true);
         try
         {
-            const new_episodes = [];
+            let new_program = urlParams.has('program') ? urlParams.get('program') : '';
+            let new_channel = urlParams.has('channel') ? urlParams.get('channel') : '';
+            let new_programName = urlParams.has('programName') ? urlParams.get('programName') : '';
 
-            let failCount = 0;
+            set_program(new_program);
+            set_channel(new_channel);
+            set_programName(new_programName);
+
+            const new_episodes = [];
             let tryCount = 0;
-            while (new_episodes.length < 5 && failCount < 8)
+
+            while (new_episodes.length < 5)
             {
-                if (isCancelLoadingRef.current == true)
+                if (isCancelLoadingRef.current === true)
                 {
                     break;
                 }
 
-                const url = `https://rthkaod2022.akamaized.net/m4a/radio/archive/${channel}/${program}/m4a/${getDateBeforeDays(daysBefore + tryCount).replaceAll('-', '')}.m4a/index_0_a.m3u8`;
-                const valid = await checkUrl(url);
-                if (valid)
+                // Create batch of 8 URLs to check simultaneously
+                const urlChecks = [];
+                for (let i = 0; i < 7; i++)
                 {
-                    new_episodes.push(getDateBeforeDays(daysBefore + tryCount));
-                    failCount = 0;
+                    const currentDate = getDateBeforeDays(daysBefore + tryCount + i);
+                    const url = `https://rthkaod2022.akamaized.net/m4a/radio/archive/${new_channel}/${new_program}/m4a/${currentDate.replaceAll('-', '')}.m4a/index_0_a.m3u8`;
+                    urlChecks.push({
+                        url,
+                        date: currentDate,
+                        checkPromise: checkUrl(url)
+                    });
                 }
-                else
+
+                // Check all URLs in parallel
+                const results = await Promise.all(urlChecks.map(check => check.checkPromise));
+
+                // Process results
+                results.forEach((valid, index) =>
                 {
-                    failCount++;
+                    if (valid && new_episodes.length < 5)
+                    {
+                        new_episodes.push(urlChecks[index].date);
+                    }
+                });
+
+                tryCount += 7;
+
+                // Break if we've tried too many times
+                if (tryCount > 35)
+                {  // Arbitrary limit to prevent infinite loops
+                    break;
                 }
-                tryCount++;
             }
 
             if (new_episodes.length === 0)
             {
                 setHasMore(false);
-            }
-            else
+            } else
             {
                 setEpisodes(prevList => [...prevList, ...new_episodes]);
                 setDaysBefore(daysBefore + tryCount);
@@ -101,8 +130,7 @@ const SelectEpisode = () =>
         {
             console.error('Error fetching episodes:', error);
             setHasMore(false);
-        }
-        finally
+        } finally
         {
             set_showLoading(false);
             set_showContent(true);
@@ -173,7 +201,7 @@ const SelectEpisode = () =>
 
                     {/* EPISODE LIST */}
                     <div className={styles.episodeList} >
-                        {episodes.map((episode, index) =>
+                        {episodes && episodes.map((episode, index) =>
                             <EpisodeItem
                                 episode={episode}
                                 onClickDownload={() => startDownload(episode)}
@@ -183,12 +211,16 @@ const SelectEpisode = () =>
                         )}
 
 
-                        {(hasMore || showLoading) &&
+                        {episodes && episodes.length > 0 && (hasMore || showLoading) &&
                             <LoadMoreButton
                                 text={showLoading ? '讀取中' : '讀取更多'}
                                 onClick={() => { showLoading == false && getEpisodeList() }}
                                 isLoading={showLoading}
                             />
+                        }
+
+                        {!episodes || episodes.length == 0 &&
+                            <Error text={'找不到集數'} />
                         }
                     </div>
                 </div>

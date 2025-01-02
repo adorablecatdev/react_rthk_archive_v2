@@ -1,12 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles/ProgramItem.module.css";
 import * as Icon from "react-bootstrap-icons";
 import { setStorageItem } from "../utilities/LocalStorage";
 
 const ProgramItem = ({ key, program, bookmarks, set_bookmarks }) =>
 {
-    const navigation = useNavigate();
-
     async function onClickBookmarkBtn(e, program)
     {
         e.stopPropagation();
@@ -24,11 +22,15 @@ const ProgramItem = ({ key, program, bookmarks, set_bookmarks }) =>
     }
 
     return (
-        <a
-            className={styles.mainContainer}
-            onClick={() => navigation(`/selectEpisode`, { state: { program } })}
+        <Link
             key={key}
-        >
+            className={styles.mainContainer}
+            to={`/selectEpisode?channel=${program?.channel}&program=${program?.folder}&programName=${program?.title}`} state={{ program }}>
+            {/* <a
+           
+            onClick={() => navigation(`/selectEpisode`, { state: { program } })}
+          
+        > */}
             <div className={styles.leftContainer}>
                 <div className={styles.timeContainer}>
                     {`${program?.latestDate}`}
@@ -51,7 +53,7 @@ const ProgramItem = ({ key, program, bookmarks, set_bookmarks }) =>
                 }
 
             </div>
-        </a>
+        </Link>
     )
 }
 
