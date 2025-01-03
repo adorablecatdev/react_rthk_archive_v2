@@ -48,6 +48,8 @@
 }
 
 .icon:hover{
+    filter: drop-shadow(0 0 10px var(--sky-500));
+    transform: translateY(-2px);
     cursor: pointer;
 }
 

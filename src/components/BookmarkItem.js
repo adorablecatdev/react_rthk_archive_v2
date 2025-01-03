@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles/BookmarkItem.module.css";
 import * as Icon from "react-bootstrap-icons";
 import { setStorageItem } from "../utilities/LocalStorage";
@@ -24,12 +24,14 @@ const BookmarkItem = ({ key, program, bookmarks, set_bookmarks }) =>
     }
 
     return (
-        <a
+        <div
             className={styles.mainContainer}
-            onClick={() => navigation(`/selectEpisode`, { state: { program } })}
             key={key}
         >
-            <div className={styles.leftContainer}>
+            <Link
+                className={styles.leftContainer}
+                to={`/selectEpisode?channel=${program?.channel}&program=${program?.folder}&programName=${program?.title}`} state={{ program }}
+            >
                 <div className={styles.channelContainer}>
                     {`${program?.channel}`}
                 </div>
@@ -42,15 +44,14 @@ const BookmarkItem = ({ key, program, bookmarks, set_bookmarks }) =>
                         {program?.producer || '-'}
                     </div>
                 </div>
-            </div>
-
+            </Link>
             <div className={styles.bookmarkBtnContainer} onClick={(e) => { onClickBookmarkBtn(e, program); }}>
                 {program?.folder in bookmarks ?
                     <Icon.BookmarkFill size={30} className={styles.bookmarkBtn} /> :
                     <Icon.Bookmark size={30} className={styles.bookmarkBtn} />
                 }
             </div>
-        </a>
+        </div>
     )
 }
 
